@@ -47,7 +47,29 @@ function clickEvent(event) {
   console.log(text);
   console.log(event.target.className);
   if (event.target.className !== 'keyboard') {
-    input.value += `${text}`;
+    if (text == 'Tab') {
+      event.preventDefault();
+      input.value += `  `;
+    }
+    else if (text == '') {
+      input.value +=' ';
+    } else if (text == 'Enter') {
+      event.preventDefault();
+      input.value += '\n';
+    } else if (text == 'Backspace') {
+      event.preventDefault();
+      input.value = input.value.replace(/.$/, "");
+    } else if (text == 'Alt') {
+      event.preventDefault();
+      input.value += `${text}`;
+    } else if (text == 'Del') {
+      event.preventDefault();
+      input.value = input.value.replace(/^./, "");
+    } else {
+      input.value += `${text}`;
+    }
+
+
   }
 }
 
