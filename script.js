@@ -1,10 +1,10 @@
 function render() {
 
-  const characters = ['`', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '-', '=', 'Backspace',
-    'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'Del',
-    'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter',
-    'ShiftLeft', '\\', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', 'ShiftRight',
-    'ControlLeft', 'Alt', ' ', 'Alt', 'ControlRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'
+  const characters = ['Backquote', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'Minus', 'Equal', 'Backspace',
+    'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'BracketLeft', 'BracketRight', 'Del',
+    'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Semicolon', 'Quote', 'Enter',
+    'ShiftLeft', 'IntlBackslash', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Comma', 'Period', 'Slash', 'ShiftRight',
+    'ControlLeft', 'AltLeft', ' ', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'
   ];
 
   document.body.insertAdjacentHTML("afterbegin", `<div class="keyboard" id="keyboard"> </div>`);
@@ -24,14 +24,16 @@ function render() {
       keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">Ctrl</div>`);
     } else if (item == 'AltRight' || item == 'AltLeft') {
       keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">Alt</div>`);
+    } else if (item == 'Minus' || item == 'Equal' || item == 'Backquote' || item == 'BracketLeft' || item == 'BracketRight') {
+      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'Minus'?'-':item == 'Equal'?'=':item == 'Backquote'?'`':item == 'BracketLeft'?'[':']'}</div>`);
     } else if (item == 'ArrowUp' || item == 'ArrowDown' || item == 'ArrowLeft' || item == 'ArrowRight') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">
-      ${item == 'ArrowUp'? '↑':
-      item == 'ArrowDown'?'↓':
-      item == 'ArrowLeft'?'←':
-      '→'}
-      </div>`);
-    } else if (item == ' ') {
+      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'ArrowUp'?'↑':item == 'ArrowDown'?'↓':item == 'ArrowLeft'?'←':'→'}</div>`);
+    } else if (item == 'Semicolon' || item == 'Quote' || item == 'IntlBackslash' || item == 'Backslash' || item == 'Slash') {
+      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'Semicolon'?';':item == 'Quote'?'\'':item == 'IntlBackslash' || item == 'Backslash'?'\\':'/'}</div>`);
+    } else if (item == 'Comma' || item == 'Period') {
+      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'Comma'?',':'.'}</div>`);
+    }
+    else if (item == ' ') {
       keyboard.insertAdjacentHTML("beforeend", `<div class="key space Space"></div>`);
     } else {
       keyboard.insertAdjacentHTML("beforeend", `<div class="key  Key${item.toUpperCase()}">${item}</div>`);
@@ -95,12 +97,24 @@ function keyboardUse(event) {
   }
 
   console.log(event.code);
+if (event.code == 'Backslash') {
+document.querySelector(`.IntlBackslash`).classList.add('active');
 
+} else {
   document.querySelector(`.${event.code}`).classList.add('active');
 }
 
+}
+
 function removeKey(event) {
-  document.querySelector(`.${event.code}`).classList.remove('active');
+if (event.code == 'Backslash') {
+  document.querySelector(`.IntlBackslash`).classList.remove('active');
+
+} else {
+document.querySelector(`.${event.code}`).classList.remove('active');
+}
+
+
 
 
 }
