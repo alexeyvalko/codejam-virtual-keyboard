@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+.input {
+  display: block;
+  margin: 20px auto;
+  width: 810px;
+  height: 200px;
+  background-color: rgb(220, 215, 243);
+  border: 1px solid rgb(92, 92, 92);
+}
+.keyboard {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  width: 810px;
+  height: 300px;
+  background-color: rgb(236, 236, 236);
+  border: 2px solid rgb(211, 211, 211);
+}
+
+.key {
+  background-color: rgb(38, 38, 94);
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  color: aliceblue;
+  margin: 2px;
+  transition: background 0.3s ease-out;
+  line-height: 3;
+  text-align: center;
+  cursor: pointer;
+}
+.key:hover {
+  background-color: brown;
+}
+.key.active {
+  background-color: brown;
+}
+
+.key.double {
+  width: 100px;
+}
+.key.space {
+  width: 366px;
+}
