@@ -6,7 +6,6 @@ function render() {
     'ControlLeft', 'AltLeft', 'Win', ' ', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight',
   ];
 
-
   const ru = ['ё', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '-', '=', 'Backspace',
     'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Del',
     'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter',
@@ -92,7 +91,7 @@ function keyDown(event) {
   const { key } = event;
   if (key === 'Tab') {
     event.preventDefault();
-    input.value += '  ';
+    input.value += '    ';
   } else if (key === '') {
     input.value += ' ';
   } else if (key === 'CapsLock') {
@@ -112,12 +111,15 @@ function keyDown(event) {
   } else if (capsLock === true) {
     input.value += `${key.toUpperCase()}`;
   } else if (event.keyCode >= 65 && event.keyCode <= 90 && eng) {
+    event.preventDefault();
     const char = document.querySelector(`#${event.code} > span.lang.en`).textContent;
     input.value += `${char}`;
   } else if (event.keyCode >= 65 && event.keyCode <= 90) {
+    event.preventDefault();
     const char = document.querySelector(`#${event.code} > span.lang.ru`).textContent;
     input.value += `${char}`;
   } else {
+    event.preventDefault();
     input.value += `${key}`;
   }
 
