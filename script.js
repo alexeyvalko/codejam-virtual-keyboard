@@ -41,7 +41,7 @@ function render() {
     } else if (en[i] === ' ') {
       keyboard.insertAdjacentHTML('beforeend', '<div class="key space" id="Space"></div>');
     } else if (typeof en[i] === 'string') {
-      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Key${en[i].toUpperCase()}"><span class="lang en ">${en[i]}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Key${en[i].toUpperCase()}"><span class="lang en">${en[i]}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
     } else {
       keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Digit${en[i]}"><span class="lang en ">${en[i]}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
     }
@@ -108,20 +108,28 @@ function keyDown(event) {
   } else if (key === 'Delete') {
     event.preventDefault();
     input.value = input.value.replace(/^./, '');
-  } else if (capsLock === true) {
-    input.value += `${key.toUpperCase()}`;
+  } else if (capsLock === true && event.keyCode >= 65 && event.keyCode <= 90) {
+    if(eng) {
+      const char = document.querySelector(`#${event.code} > span.en`).textContent;
+      input.value += `${char.toUpperCase()}`;
+    } else {
+      const char = document.querySelector(`#${event.code} > span.ru`).textContent;
+      input.value += `${char.toUpperCase()}`;
+    }
   } else if (event.keyCode >= 65 && event.keyCode <= 90 && eng) {
     event.preventDefault();
-    const char = document.querySelector(`#${event.code} > span.lang.en`).textContent;
+    const char = document.querySelector(`#${event.code} > span.en`).textContent;
     input.value += `${char}`;
-  } else if (event.keyCode >= 65 && event.keyCode <= 90) {
+  } else if (event.keyCode >= 65 && event.keyCode <= 90 ) {
     event.preventDefault();
-    const char = document.querySelector(`#${event.code} > span.lang.ru`).textContent;
+    const char = document.querySelector(`#${event.code} > span.ru`).textContent;
     input.value += `${char}`;
-  } else {
-    event.preventDefault();
-    input.value += `${key}`;
   }
+
+  // else if (!event.ctrlKey) {
+  //   event.preventDefault();
+  //   input.value += `${key}`;
+  // }
 
   if (event.altKey && event.ctrlKey) {
     eng ? eng = false : eng = true;
