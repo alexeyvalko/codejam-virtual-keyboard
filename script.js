@@ -120,12 +120,11 @@ function keyDown(event) {
     event.preventDefault();
     const char = document.querySelector(`#${event.code} > span.en`).textContent;
     input.value += `${char}`;
-  } else if (event.keyCode >= 65 && event.keyCode <= 90 ) {
+  } else if (!event.ctrlKey && !eng) {
     event.preventDefault();
     const char = document.querySelector(`#${event.code} > span.ru`).textContent;
     input.value += `${char}`;
   }
-
   // else if (!event.ctrlKey) {
   //   event.preventDefault();
   //   input.value += `${key}`;
