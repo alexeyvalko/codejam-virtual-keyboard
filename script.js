@@ -15,7 +15,7 @@ function render() {
     'ShiftLeft', '\\', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'ShiftRight',
     'ControlLeft', 'AltLeft', 'Win', ' ', 'AltRight', 'ControlRight', '←', '↑', '↓', '→'
   ]
-  document.body.insertAdjacentHTML('afterbegin', `<div class="megatext"> Переключение языка Alt + Shift</div>`);
+  document.body.insertAdjacentHTML('afterbegin', `<div class="megatext"> Переключение языка Ctrl + Alt</div>`);
   document.body.insertAdjacentHTML('afterbegin', `<div class="keyboard" id="keyboard"> </div>`);
   document.body.insertAdjacentHTML('afterbegin', `<textarea class="input" id="input"></textarea>`);
 
@@ -55,7 +55,7 @@ function render() {
   }
   render();
   let capsLock = false;
-
+  let eng = true;
   function clickEvent(event) {
     let text = event.target.textContent;
 
@@ -94,7 +94,7 @@ function render() {
 
   function keyDown(event) {
     console.log(event.code);
-    console.log(event.keyCode);
+    console.log(event.key);
 
     let key = event.key;
     if (key === 'Tab') {
@@ -119,13 +119,22 @@ function render() {
       input.value = input.value.replace(/^./, "");
     } else if (capsLock === true) {
       input.value += `${key.toUpperCase()}`;
-    } else {
-      input.value += `${key}`;
+    } else if (!event.ctrlKey && eng) {
+      let char = document.querySelector(`#${event.code} > span.lang.en`).textContent;
+      input.value += `${char}`;
+    } else if (!event.ctrlKey) {
+      let char = document.querySelector(`#${event.code} > span.lang.ru`).textContent;
+      input.value += `${char}`;
     }
 
-    if (event.altKey && event.shiftKey) {
+    if (event.altKey && event.ctrlKey) {
+      eng ? eng=false : eng=true;
       document.querySelectorAll('.en').forEach(item => item.classList.toggle('hidden'));
       document.querySelectorAll('.ru').forEach(item => item.classList.toggle('hidden'));
+    }
+
+    if (event.shiftKey) {
+      document.querySelectorAll('.lang').forEach(item => item.classList.add('caps'));
     }
 
     if (event.code == 'Backslash') {
@@ -139,6 +148,9 @@ document.querySelector(`#IntlBackslash`).classList.add('active');
   }
 
   function keyUp(event) {
+    if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') {
+      document.querySelectorAll('.lang').forEach(item => item.classList.remove('caps'));
+}
    if (event.code == 'Backslash') {
      document.querySelector(`#IntlBackslash`).classList.remove('active');
 
