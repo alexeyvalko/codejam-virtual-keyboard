@@ -93,7 +93,7 @@ function render() {
   }
 
   function keyDown(event) {
-    console.log(event.code);
+    console.log(event.keyCode);
     console.log(event.key);
 
     let key = event.key;
@@ -119,12 +119,14 @@ function render() {
       input.value = input.value.replace(/^./, "");
     } else if (capsLock === true) {
       input.value += `${key.toUpperCase()}`;
-    } else if (!event.ctrlKey && eng) {
+    } else if (event.keyCode >= 65 && event.keyCode <= 90 && eng) {
       let char = document.querySelector(`#${event.code} > span.lang.en`).textContent;
       input.value += `${char}`;
-    } else if (!event.ctrlKey) {
+    } else if (event.keyCode >= 65 && event.keyCode <= 90) {
       let char = document.querySelector(`#${event.code} > span.lang.ru`).textContent;
       input.value += `${char}`;
+    } else {
+      input.value += `${key}`;
     }
 
     if (event.altKey && event.ctrlKey) {
