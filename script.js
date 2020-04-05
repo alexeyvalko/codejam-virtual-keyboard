@@ -1,126 +1,152 @@
 function render() {
 
-  const characters = ['Backquote', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'Minus', 'Equal', 'Backspace',
+  const en = ['Backquote', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'Minus', 'Equal', 'Backspace',
     'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'BracketLeft', 'BracketRight', 'Del',
     'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'Semicolon', 'Quote', 'Enter',
     'ShiftLeft', 'IntlBackslash', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'Comma', 'Period', 'Slash', 'ShiftRight',
-    'ControlLeft', 'AltLeft', ' ', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'
-  ];
+    'ControlLeft', 'AltLeft', 'Win', ' ', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'ArrowRight'
+  ]
 
-  document.body.insertAdjacentHTML("afterbegin", `<div class="keyboard" id="keyboard"> </div>`);
-  document.body.insertAdjacentHTML("afterbegin", `<textarea class="input" id='input'></textarea>`);
 
-  characters.forEach(item => {
-    if (item == 'Backspace' || item == 'Tab' || item == 'CapsLock' ||
-      item == 'Enter') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key double ${item}">${item}</div>`);
-    } else if (item == 'Del') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key Delete">${item}</div>`);
-    } else if (typeof item == 'number') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key Digit${item}">${item}</div>`);
-    } else if (item == 'ShiftRight' || item == 'ShiftLeft') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key double ${item}">Shift</div>`);
-    } else if (item == 'ControlRight' || item == 'ControlLeft') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">Ctrl</div>`);
-    } else if (item == 'AltRight' || item == 'AltLeft') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">Alt</div>`);
-    } else if (item == 'Minus' || item == 'Equal' || item == 'Backquote' || item == 'BracketLeft' || item == 'BracketRight') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'Minus'?'-':item == 'Equal'?'=':item == 'Backquote'?'`':item == 'BracketLeft'?'[':']'}</div>`);
-    } else if (item == 'ArrowUp' || item == 'ArrowDown' || item == 'ArrowLeft' || item == 'ArrowRight') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'ArrowUp'?'↑':item == 'ArrowDown'?'↓':item == 'ArrowLeft'?'←':'→'}</div>`);
-    } else if (item == 'Semicolon' || item == 'Quote' || item == 'IntlBackslash' || item == 'Backslash' || item == 'Slash') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'Semicolon'?';':item == 'Quote'?'\'':item == 'IntlBackslash' || item == 'Backslash'?'\\':'/'}</div>`);
-    } else if (item == 'Comma' || item == 'Period') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key ${item}">${item == 'Comma'?',':'.'}</div>`);
+
+  const ru = ['ё', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '-', '=', 'Backspace',
+    'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Del',
+    'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter',
+    'ShiftLeft', '\\', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'ShiftRight',
+    'ControlLeft', 'AltLeft', 'Win', ' ', 'AltRight', 'ControlRight', '←', '↑', '↓', '→'
+  ]
+  document.body.insertAdjacentHTML('afterbegin', `<div class="megatext"> Переключение языка Alt + Shift</div>`);
+  document.body.insertAdjacentHTML('afterbegin', `<div class="keyboard" id="keyboard"> </div>`);
+  document.body.insertAdjacentHTML('afterbegin', `<textarea class="input" id="input"></textarea>`);
+
+  for (let i = 0; i < en.length; i++) {
+    if (en[i] === 'Backspace' || en[i] === 'Tab' || en[i] === 'CapsLock' ||
+      en[i] === 'Enter') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key double" id="${en[i]}"><span>${en[i]}</span></div>`);
+    } else if (en[i] === 'ShiftRight' || en[i] === 'ShiftLeft') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key double" id="${en[i]}"><span>Shift</span></div>`);
+    } else if (en[i] === 'AltRight' || en[i] == 'AltLeft') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="${en[i]}"><span>Alt</span></div>`);
+    } else if (en[i] === 'ControlRight' || en[i] == 'ControlLeft') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="${en[i]}"><span>Ctr</span></div>`);
+    } else if (en[i] === 'Del') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Delete"><span>${en[i]}</span></div>`);
+    } else if (en[i] === 'Win') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="MetaLeft"><span>${en[i]}</span></div>`);
+
+    } else if (en[i] === 'Minus' || en[i] == 'Equal' || en[i] == 'Backquote' || en[i] == 'BracketLeft' || en[i] == 'BracketRight') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="${en[i]}"><span class="lang en ">${en[i] == 'Minus'?'-':en[i] == 'Equal'?'=':en[i] == 'Backquote'?'`':en[i] == 'BracketLeft'?'[':']'} </span><span class="lang ru hidden ">${ru[i]}</span> </div>`);
+    } else if (en[i] === 'ArrowUp' || en[i] === 'ArrowDown' || en[i] == 'ArrowLeft' || en[i] == 'ArrowRight') {
+      keyboard.insertAdjacentHTML('beforeend', `<div class = "key" id = "${en[i]}" > ${en[i] == 'ArrowUp' ? '↑' : en[i] == 'ArrowDown' ? '↓' : en[i] == 'ArrowLeft' ? '←' : '→'} </div>`);
+      }
+      else if (en[i] === 'Semicolon' || en[i] === 'Quote' || en[i] == 'IntlBackslash' || en[i] == 'Backslash' || en[i] == 'Slash') {
+        keyboard.insertAdjacentHTML('beforeend', `<div class="key " id="${en[i]}"><span class="lang en">${en[i] == 'Semicolon'?';':en[i] == 'Quote'?'\'':en[i] == 'IntlBackslash' || en[i] == 'Backslash'?'\\':'/'}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
+      } else if (en[i] == 'Comma' || en[i] === 'Period') {
+        keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="${en[i]}"><span class="lang en ">${en[i] == 'Comma'?',':'.'}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
+      } else if (en[i] === ' ') {
+        keyboard.insertAdjacentHTML('beforeend', `<div class="key space" id="Space"></div>`);
+      } else if (typeof en[i] === 'string') {
+        keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Key${en[i].toUpperCase()}"><span class="lang en ">${en[i]}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
+      } else {
+        keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Digit${en[i]}"><span class="lang en ">${en[i]}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
+      }
     }
-    else if (item == ' ') {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key space Space"></div>`);
-    } else {
-      keyboard.insertAdjacentHTML("beforeend", `<div class="key  Key${item.toUpperCase()}">${item}</div>`);
+
+  }
+  render();
+  let capsLock = false;
+
+  function clickEvent(event) {
+    let text = event.target.textContent;
+
+    console.log(text);
+    console.log(event.target.className);
+    if (event.target.className !== 'keyboard') {
+      if (text === 'Tab') {
+        event.preventDefault();
+        input.value += `  `;
+      } else if (text === '') {
+        input.value += ' ';
+      } else if (text === 'CapsLock') {
+        capsLock ? capsLock = false : capsLock = true;
+        document.querySelectorAll('.lang').forEach(item => item.classList.toggle('caps'));
+      } else if (text === 'Enter') {
+        event.preventDefault();
+        input.value += '\n';
+      } else if (text === 'Backspace') {
+        event.preventDefault();
+        input.value = input.value.replace(/.$/, "");
+      } else if (text === 'Alt') {
+        event.preventDefault();
+        input.value += `${text}`;
+      } else if (text === 'Del') {
+        event.preventDefault();
+        input.value = input.value.replace(/^./, "");
+      } else if (capsLock === true) {
+        input.value += `${text.toUpperCase()}`;
+      } else {
+        input.value += `${text}`;
+      }
+
+
     }
-  });
-}
+  }
 
+  function keyDown(event) {
+    console.log(event.code);
+    console.log(event.keyCode);
 
-
-
-function clickEvent(event) {
-  let text = event.target.textContent;
-  console.log(text);
-  console.log(event.target.className);
-  if (event.target.className !== 'keyboard') {
-    if (text == 'Tab') {
+    let key = event.key;
+    if (key === 'Tab') {
       event.preventDefault();
       input.value += `  `;
-    }
-    else if (text == '') {
-      input.value +=' ';
-    } else if (text == 'Enter') {
+    } else if (key === '') {
+      input.value += ' ';
+    } else if (key === 'CapsLock') {
+      capsLock ? capsLock = false : capsLock = true;
+      document.querySelectorAll('.lang').forEach(item => item.classList.toggle('caps'));
+    } else if (key === 'Enter') {
       event.preventDefault();
       input.value += '\n';
-    } else if (text == 'Backspace') {
+    } else if (key === 'Backspace') {
       event.preventDefault();
       input.value = input.value.replace(/.$/, "");
-    } else if (text == 'Alt') {
+    } else if (event.altKey || event.shiftKey) {
       event.preventDefault();
-      input.value += `${text}`;
-    } else if (text == 'Del') {
+
+    } else if (key === 'Del') {
       event.preventDefault();
       input.value = input.value.replace(/^./, "");
+    } else if (capsLock === true) {
+      input.value += `${key.toUpperCase()}`;
     } else {
-      input.value += `${text}`;
+      input.value += `${key}`;
     }
 
+    if (event.altKey && event.shiftKey) {
+      document.querySelectorAll('.en').forEach(item => item.classList.toggle('hidden'));
+      document.querySelectorAll('.ru').forEach(item => item.classList.toggle('hidden'));
+    }
+
+    if (event.code == 'Backslash') {
+document.querySelector(`#IntlBackslash`).classList.add('active');
+
+    } else {
+      document.querySelector(`#${event.code}`).classList.add('active')
+    };
+
 
   }
-}
 
-function keyboardUse(event) {
-  let key = event.key;
-  if (key == 'Tab') {
-    event.preventDefault();
-    input.value += `  `;
-  } else if (key == 'Enter') {
-    event.preventDefault();
-    input.value += '\n';
-  } else if (key == 'Backspace') {
-    event.preventDefault();
-    input.value = input.value.replace(/.$/, "");
-  } else if (key == 'Alt') {
-    event.preventDefault();
-    input.value += `${key}`;
-  } else if (key == 'Delete') {
-    event.preventDefault();
-    input.value = input.value.replace(/^./, "");
-  } else {
-    input.value += `${key}`;
+  function keyUp(event) {
+   if (event.code == 'Backslash') {
+     document.querySelector(`#IntlBackslash`).classList.remove('active');
+
+   } else {
+     document.querySelector(`#${event.code}`).classList.remove('active')
+   };
   }
 
-  console.log(event.code);
-if (event.code == 'Backslash') {
-document.querySelector(`.IntlBackslash`).classList.add('active');
-
-} else {
-  document.querySelector(`.${event.code}`).classList.add('active');
-}
-
-}
-
-function removeKey(event) {
-if (event.code == 'Backslash') {
-  document.querySelector(`.IntlBackslash`).classList.remove('active');
-
-} else {
-document.querySelector(`.${event.code}`).classList.remove('active');
-}
-
-
-
-
-}
-render();
-
-
-document.addEventListener('keydown', keyboardUse);
-document.addEventListener('keyup', removeKey);
-document.querySelector('#keyboard').addEventListener('click', clickEvent);
+  document.addEventListener('keydown', keyDown);
+  document.addEventListener('keyup', keyUp);
+  document.querySelector('#keyboard').addEventListener('click', clickEvent);
