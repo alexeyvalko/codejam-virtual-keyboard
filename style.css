@@ -58,6 +58,11 @@ span {
 .key:hover {
   background-color: brown;
 }
+
+.active-caps{
+   background-color: rgb(61, 167, 93);
+border-radius:15px ;
+}
 .key.active {
   background-color: brown;
 border-radius:15px ;

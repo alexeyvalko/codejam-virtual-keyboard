@@ -99,6 +99,7 @@ function keyDown(event) {
   } else if (key === 'CapsLock') {
     capsLock ? capsLock = false : capsLock = true;
     document.querySelectorAll('.lang').forEach((item) => item.classList.toggle('caps'));
+
   } else if (key === 'Enter') {
     event.preventDefault();
     input.value += '\n';
@@ -149,6 +150,8 @@ function keyDown(event) {
 
   if (event.code == 'Backslash') {
     document.querySelector('#IntlBackslash').classList.add('active');
+  } else if (event.code == 'CapsLock') {
+    document.querySelector('#CapsLock').classList.toggle('active-caps');
   } else {
     document.querySelector(`#${event.code}`).classList.add('active');
   }
