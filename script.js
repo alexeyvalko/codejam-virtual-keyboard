@@ -12,6 +12,9 @@ function render() {
     'ShiftLeft', '\\', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', 'ShiftRight',
     'ControlLeft', 'AltLeft', 'Win', ' ', 'AltRight', 'ControlRight', '←', '↑', '↓', '→',
   ];
+
+  const pressShift = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace','Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}', 'Del',
+  ];
   document.body.insertAdjacentHTML('afterbegin', '<div class="megatext"> Переключение языка Ctrl + Alt</div>');
   document.body.insertAdjacentHTML('afterbegin', '<div class="keyboard" id="keyboard"> </div>');
   document.body.insertAdjacentHTML('afterbegin', '<textarea class="input" id="input"></textarea>');
@@ -31,7 +34,7 @@ function render() {
     } else if (en[i] === 'Win') {
       keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="MetaLeft"><span>${en[i]}</span></div>`);
     } else if (en[i] === 'Minus' || en[i] == 'Equal' || en[i] == 'Backquote' || en[i] == 'BracketLeft' || en[i] == 'BracketRight') {
-      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="${en[i]}"><span class="lang en ">${en[i] == 'Minus' ? '-' : en[i] == 'Equal' ? '=' : en[i] == 'Backquote' ? '`' : en[i] == 'BracketLeft' ? '[' : ']'} </span><span class="lang ru hidden ">${ru[i]}</span> </div>`);
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="${en[i]}"><span class="lang en digit">${en[i] == 'Minus' ? '-' : en[i] == 'Equal' ? '=' : en[i] == 'Backquote' ? '`' : en[i] == 'BracketLeft' ? '[' : ']'} </span><span class="lang ru digit hidden ">${ru[i]}</span> <span class="shift hidden">${pressShift[i]}</span></div>`);
     } else if (en[i] === 'ArrowUp' || en[i] === 'ArrowDown' || en[i] == 'ArrowLeft' || en[i] == 'ArrowRight') {
       keyboard.insertAdjacentHTML('beforeend', `<div class = "key" id = "${en[i]}" > ${en[i] == 'ArrowUp' ? '↑' : en[i] == 'ArrowDown' ? '↓' : en[i] == 'ArrowLeft' ? '←' : '→'} </div>`);
     } else if (en[i] === 'Semicolon' || en[i] === 'Quote' || en[i] == 'IntlBackslash' || en[i] == 'Backslash' || en[i] == 'Slash') {
@@ -43,7 +46,7 @@ function render() {
     } else if (typeof en[i] === 'string') {
       keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Key${en[i].toUpperCase()}"><span class="lang en">${en[i]}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
     } else {
-      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Digit${en[i]}"><span class="lang en ">${en[i]}</span><span class="lang ru hidden">${ru[i]}</span></div>`);
+      keyboard.insertAdjacentHTML('beforeend', `<div class="key" id="Digit${en[i]}"><span class="lang en digit">${en[i]}</span><span class="lang ru digit hidden">${ru[i]}</span><span class="shift hidden">${pressShift[i]}</span></div>`);
     }
   }
 }
@@ -136,8 +139,13 @@ function keyDown(event) {
     document.querySelectorAll('.ru').forEach((item) => item.classList.toggle('hidden'));
   }
 
-  if (event.shiftKey) {
-    document.querySelectorAll('.lang').forEach((item) => item.classList.add('caps'));
+  if (event.code == 'ShiftLeft' || event.code == 'ShiftRight' || event.shiftKeyy) {
+    document.querySelectorAll('.en').forEach((item) => item.classList.add('caps'));
+    document.querySelectorAll('.ru').forEach((item) => item.classList.add('caps'));
+    document.querySelectorAll('.shift').forEach((item) => item.classList.remove('hidden'));
+
+    document.querySelectorAll('.digit').forEach((item) => item.classList.add('hidden'));
+
   }
 
   if (event.code == 'Backslash') {
@@ -148,8 +156,17 @@ function keyDown(event) {
 }
 
 function keyUp(event) {
-  if (event.code == 'ShiftLeft' || event.code == 'ShiftRight') {
-    document.querySelectorAll('.lang').forEach((item) => item.classList.remove('caps'));
+  if (event.code == 'ShiftLeft' || event.code == 'ShiftRight' || event.shiftKey) {
+    document.querySelectorAll('.en').forEach((item) => item.classList.remove('caps'));
+    document.querySelectorAll('.ru').forEach((item) => item.classList.remove('caps'));
+    document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
+
+    if(eng) {
+       document.querySelectorAll('.en').forEach((item) => item.classList.remove('hidden'));
+    } else {
+      document.querySelectorAll('.ru').forEach((item) => item.classList.remove('hidden'));
+    }
+
   }
   if (event.code == 'Backslash') {
     document.querySelector('#IntlBackslash').classList.remove('active');
@@ -158,6 +175,22 @@ function keyUp(event) {
   }
 }
 
+function mouseup(e) {
+  console.log(e.target.parentElement);
+    e.target.parentElement.classList.remove('active');
+
+}
+
+function mousedown(e) {
+  console.log(e);
+  e.target.parentElement.classList.add('active');
+
+
+
+}
+
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 document.querySelector('#keyboard').addEventListener('click', clickEvent);
+document.querySelector('#keyboard').addEventListener('mousedown', mousedown);
+document.querySelector('#keyboard').addEventListener('mouseup', mouseup);

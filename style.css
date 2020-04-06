@@ -50,7 +50,7 @@ span {
   border-radius: 5px;
   color: aliceblue;
   margin: 2px;
-  transition: background 0.3s ease-out;
+  transition: all 0.3s ease-out;
   line-height: 3;
   text-align: center;
   cursor: pointer;
@@ -60,6 +60,7 @@ span {
 }
 .key.active {
   background-color: brown;
+border-radius:15px ;
 }
 
 .key.double {
