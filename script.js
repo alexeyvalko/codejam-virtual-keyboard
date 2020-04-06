@@ -185,7 +185,13 @@ function mouseup(e) {
 
 function mousedown(e) {
   console.log(e);
-  e.target.parentElement.classList.add('active');
+
+  if (e.target.parentElement.id == 'CapsLock') {
+    document.querySelector('#CapsLock').classList.toggle('active-caps');
+  } else {
+    e.target.parentElement.classList.add('active');
+  }
+
 
 
 
