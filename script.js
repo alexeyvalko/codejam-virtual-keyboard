@@ -13,8 +13,7 @@ function render() {
     'ControlLeft', 'AltLeft', 'Win', ' ', 'AltRight', 'ControlRight', '←', '↑', '↓', '→',
   ];
 
-  const pressShift = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace','Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}', 'Del',
-  ];
+  const pressShift = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace', 'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '{', '}', 'Del'];
   document.body.insertAdjacentHTML('afterbegin', '<div class="megatext"> Переключение языка Ctrl + Alt</div>');
   document.body.insertAdjacentHTML('afterbegin', '<div class="keyboard" id="keyboard"> </div>');
   document.body.insertAdjacentHTML('afterbegin', '<textarea class="input" id="input"></textarea>');
