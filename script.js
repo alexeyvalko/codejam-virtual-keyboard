@@ -121,12 +121,23 @@ function keyDown(event) {
     }
   } else if (!event.ctrlKey && eng) {
     event.preventDefault();
-    const char = document.querySelector(`#${event.code} > span.en`).textContent;
-    input.value += `${char}`;
+    if (document.querySelector(`#${event.code} > span.en`)) {
+      const char = document.querySelector(`#${event.code} > span.en`).textContent;
+      input.value += `${char}`;
+    } else {
+      event.preventDefault();
+      input.value += `${key}`;
+    }
+
   } else if (!event.ctrlKey && !eng) {
     event.preventDefault();
-    const char = document.querySelector(`#${event.code} > span.ru`).textContent;
-    input.value += `${char}`;
+    if (document.querySelector(`#${event.code} > span.ru`)) {
+      const char = document.querySelector(`#${event.code} > span.ru`).textContent;
+      input.value += `${char}`;
+    } else {
+      event.preventDefault();
+      input.value += `${key}`;
+    }
   }
   // else if (!event.ctrlKey) {
   //   event.preventDefault();
@@ -159,19 +170,19 @@ function keyDown(event) {
 
 function keyUp(event) {
   if (event.code == 'ShiftLeft' || event.code == 'ShiftRight' || event.shiftKey) {
-if(capsLock) {
-   document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
+    if(capsLock) {
+      document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
 
-} else {
-document.querySelectorAll('.en').forEach((item) => item.classList.remove('caps'));
-document.querySelectorAll('.ru').forEach((item) => item.classList.remove('caps'));
-document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
-}
+    } else {
+      document.querySelectorAll('.en').forEach((item) => item.classList.remove('caps'));
+      document.querySelectorAll('.ru').forEach((item) => item.classList.remove('caps'));
+      document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
+    }
 
 
 
     if(eng) {
-       document.querySelectorAll('.en').forEach((item) => item.classList.remove('hidden'));
+      document.querySelectorAll('.en').forEach((item) => item.classList.remove('hidden'));
     } else {
       document.querySelectorAll('.ru').forEach((item) => item.classList.remove('hidden'));
     }
@@ -186,7 +197,7 @@ document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden
 
 function mouseup(e) {
   console.log(e.target.parentElement);
-    e.target.parentElement.classList.remove('active');
+  e.target.parentElement.classList.remove('active');
 
 }
 
