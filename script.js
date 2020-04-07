@@ -139,7 +139,7 @@ function keyDown(event) {
     document.querySelectorAll('.ru').forEach((item) => item.classList.toggle('hidden'));
   }
 
-  if (event.code == 'ShiftLeft' || event.code == 'ShiftRight' || event.shiftKeyy) {
+  if (event.code == 'ShiftLeft' || event.code == 'ShiftRight' || event.shiftKey) {
     document.querySelectorAll('.en').forEach((item) => item.classList.add('caps'));
     document.querySelectorAll('.ru').forEach((item) => item.classList.add('caps'));
     document.querySelectorAll('.shift').forEach((item) => item.classList.remove('hidden'));
@@ -159,9 +159,16 @@ function keyDown(event) {
 
 function keyUp(event) {
   if (event.code == 'ShiftLeft' || event.code == 'ShiftRight' || event.shiftKey) {
-    document.querySelectorAll('.en').forEach((item) => item.classList.remove('caps'));
-    document.querySelectorAll('.ru').forEach((item) => item.classList.remove('caps'));
-    document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
+if(capsLock) {
+   document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
+
+} else {
+document.querySelectorAll('.en').forEach((item) => item.classList.remove('caps'));
+document.querySelectorAll('.ru').forEach((item) => item.classList.remove('caps'));
+document.querySelectorAll('.shift').forEach((item) => item.classList.add('hidden'));
+}
+
+
 
     if(eng) {
        document.querySelectorAll('.en').forEach((item) => item.classList.remove('hidden'));
